@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Filelist与file对象</title>
+	<script>
+
+	function ShowFileName(){
+		var file;
+		for(var i=0; i<document.getElementById('file').files.length; i++){
+			file=document.getElementById("file").file[i];
+			alert(file.name);
+		}
+	}
+
+ 	//Blob对象：Blob表示二进制原始数据，提供一个slice方法。可以通过该方法访问到字节内部的原始数据块。
+	function ShowFileType(){
+		var file;
+		file=document.getElementById("file").files[0];
+		var size=document.getElementById("size");
+		size.innerHTML=file.size; //显示文件字节长度
+		var type=document.getElementById("type");
+		type.innerHTML=file.type; //显示文件类型
+	}
+
+	//Blob对象的type属性利用
+	function FileUpLoad(){
+		var file;
+		for(var i=0;i<document.getElementById("file").files.length;i++){
+			file=document.getElementById("file").files[i];
+			if(! /image\/\w+/.test(file.type)){
+				alert(file.name +"不是图像文件！");
+				break;
+			}
+			else{
+				alert(file.name+"文件已上传！");
+			}
+		}
+	}
+
+	</script>
+</head>
+
+<body>
+	选择文件： <input type="file" id="file" multiple size="100" />
+	<input type="button" value="显示文件信息" onclick="ShowFileType();"/><br/>
+	文件字节长度： <span id="size"></span><br/>
+	文件类型： <span id="type"></span><br/>
+	<input type="button" onclick="ShowFileName();" value="文件上传1" /><br/>
+	<input type="button" onclick="FileUpLoad();" value="文件上传2" /><br/>
+</body>
+</html>

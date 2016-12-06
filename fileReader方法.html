@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>fileReader方法</title>
+
+</head>
+<body>
+	<p>
+		<label>请选择一个文件：</label><br>
+		<input type="file" id="file" /><br>
+		<input type="button" value="读取图像" onclick="readAsDataURL();">
+		<input type="button" value="读取二进制数据" onclick="readAsBinaryString();" />
+		<input type="button" value="读取文本文件" onclick="readAsText();" />
+		<input type="button" value="显示图像" onclick="readfile();" />
+	</p>
+	<div name="result" id="result">
+
+	</div>
+
+	<script>
+
+		var file=document.getElementById("file");
+		var result=document.getElementById("result");
+		if(typeof FileReader == 'undefined'){
+			result.innerHTML = "<p>Sorry,Your Browst unsupport FileReader !!</p>";
+			file.setAttribute('disabled','disabled');
+		}
+
+		function readfile(){  //fileReader对象的先后顺序
+			var file = document.getElementById("file").files[0];
+			var reader=new FileReader();
+			reader.onload=function(e){
+				result.innerHTML='<img src="'+this.result+'" alt="" />';
+				alert("load");
+			};
+			reader.onprogress=function(e){
+				alert("progress");
+			};
+			reader.onabort=function(e){
+				alert("abort");
+			};
+			reader.onerror=function(e){
+				alert("error");
+			};
+			reader.onloadstart=function(e){
+				alert("loadstart");
+			};
+			reader.onloadend=function(e){
+				alert("loadend");
+			};
+			reader.FileReader(file);
+		}
+
+		function readAsDataURL(){ //将文件以Data URL形式读入页面
+			var file=document.getElementById("file").files[0];
+			if(! /image\/\w+/.test(file.type)){
+				alert("Please make sure the file is an image !!");
+				return false;
+			}
+			var reader=new FileReader();
+			reader.readAsDataURL(file);
+			reader.onload=function(e){
+				var result=document.getElementById("result");
+				result.innerHTML='<img src="'+this.result+'" alt="" />';
+			}
+		}
+
+		function readAsBinaryString(){ //将文件二进制形式读入页面
+			var file=document.getElementById("file").files[0];
+			var result= new FileReader();
+			result.readAsBinaryString(file);
+			result.onload=function(f){
+				var result=document.getElementById("result");
+				result.innerHTML=this.result;
+			}
+		}
+
+		function readAsText(){ //将文件以文本读入页面
+			var file=document.getElementById("file").files[0];
+			var reader=new FileReader();
+			reader.readAsText(file);
+			reader.onload=function(f){
+				var result=document.getElementById("result");
+				result.innerHTML=this.result;
+			}
+		}
+
+	</script>
+</body>
+
+</html>

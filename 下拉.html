@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS下拉</title>
+</head>
+<style>
+	img{ width:200px; height: auto; }
+
+	#div1{
+	 -webkit-animation-name:slideDown;
+	 -webkit-animation-duration: 5s;
+	 animation-name:slideDown;
+	 animation-duration: 5s;
+	}
+	@-webkit-keyframes slideDown{
+		from{ -webkit-transform:translateY(-100%);}
+		to{ -webkit-transform: translateY(0); }
+	}
+	@keyframes slideDown{
+		from { transform: translateY(-100%); }
+		to{transform: translateY(0); }
+	}
+
+	#div2 {
+		position: relative;
+		-webkit-animation-name: bounce;
+		-webkit-animation-duration: 1s;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-direction: alternate;
+		-webkit-animation-timing-function: cubic-bezier(0.515, 0.180, 0.900, 0.470);
+
+		animation-name: bounce;
+		animation-duration: 1s;
+		animation-iteration-count: infinite;
+		animation-direction: alternate;
+		animation-timing-function: cubic-bezier(0.515, 0.180, 0.900, 0.470);
+	}
+
+    @-webkit-keyframes bounce {
+      from {
+        top: 0;
+      }
+      to {
+        top: 50%;
+      }
+    }
+
+    @keyframes bounce {
+		from {
+			top: 0;
+		}
+		to {
+			top: 50%;
+		}
+	}
+
+
+</style>
+<body>
+	<div id="div1"><!-- 图片从窗口顶部缓缓  -->
+		<img src="./1.jpg" alt="flower1">
+	</div>
+	<hr><!-- 自由落体与弹回（有问题） -->
+	<div id="div2">
+		<img src="./1.jpg" alt="flower2">
+	</div>
+</body>
+</html>
