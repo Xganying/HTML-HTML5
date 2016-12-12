@@ -1,0 +1,131 @@
+/*倒计时CSS*/
+
+/*计时器背景底色*/
+div.wraper_i{
+	border: 1px solid #cccc99;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color: green;
+	width: 333px;
+	padding: 10px;
+}
+
+/*计时器显示底板色*/
+div.wraper_ii{
+	border: 1px solid #cccc99;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color: #cccc99;
+	padding: 5px;
+}
+
+/*按钮外框容器样式*/
+div.buttons{
+	height: 30px;
+	margin: 0 auto;
+	padding: 8px 0 5px 30px;
+}
+/*计数显示屏样式*/
+ul.viewport{
+	border:1px solid #cccc99;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+	-webkit-border-radius: 10px;
+	background-color:green;
+	height: 55px;
+	padding: 5px 0 0 5px;
+	margin: 0;
+}
+
+/*按钮通用样式*/
+a.button{
+	display: block;
+	float: left;
+	position: relative;
+	height: 25px;
+	width: 80px;
+	margin: 0 10px 18px 0;
+	text-decoration: none;
+	font: 12px Arial;
+	font-weight: bold;
+	line-height: 25px;
+	text-align: center;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+/*在按钮元素之前和之后添加样式*/
+a.button:before,a.button:after{
+	content: '';
+	position: absolute;
+	left:-1px ;
+	height:25px;
+	width:80px;
+	bottom: -1px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+/*在按钮元素之后添加*/
+a.button:before{
+	height: 23px;
+	bottom: -4px;
+	border-top: 0;
+	border-radius: 0 0 3px 3px;
+	-webkit-border-radius: 0 0 3px 3px;
+	-moz-border-radius: 0 0 3px 3px;
+	/*图层阴影效果*/
+	box-shadow: 0 1px 1px 0 #bfbfbf;
+	-webkit-box-shadow: 0 1px 1px 0 #bfbfbf;
+	-moz-box-shadow:0 1px 1px 0 #bfbfbf;
+}
+
+/*元素激活，单击与释放之间的样式*/
+a.button:active{
+	border:none;
+	bottom: -4px;
+	margin-bottom: 22px;
+	-webkit-box-shadow: 0 1px 1px  #fff;
+	-moz-box-shadow:0 1px 1px  #fff;
+	/*添加内阴影，让按钮看上去感觉已经被按下*/
+	box-shadow: 1px 1px 0 #fff, inset 0 1px 1px rgba(0,0,0,0.3);
+}
+
+/*元素激活之前和激活之后添加样式*/
+a.button:active:before,a.button:active:after{
+	border: none;
+	/*取出图层阴影效果*/
+	-webkit-box-shadow:none;
+	-moz-box-shadow:none;
+	box-shadow:none;
+}
+
+/*绿色按钮，悬停或已经被访问的连接样式*/
+a.green, a.green:hover, a.green:visited{
+	color: #5d7731;
+	border-bottom: 4px solid #799545;
+	text-shadow: 0 1px 0 #d5e8aa;
+	background: #cae285;	
+	/*线性渐变*/
+	background: -webkit-gradient(linear, left top, left bottom, from(#a3cd5a), to(#a3cd5a));
+	/*内阴影*/
+	box-shadow: inset 1px 1px 0 #cce3a1;
+}
+
+/*在绿色按钮之前和之后添加样式*/
+.green:before, .green:after{
+	border: 1px solid #98ba5b;
+	border-bottom: 1px solid #6d883d;
+}
+
+/*在绿色按钮悬停添加样式*/
+a.green:hover{
+	background: #a3cd5a;
+	/*线性渐变*/
+	background:  -webkit-gradient(linear, left top, left bottom, from(#a3cd5a), to(#a3cd5a));
+	background:-moz-linear-gradient(top, #a3cd5a, #cae285);
+}
