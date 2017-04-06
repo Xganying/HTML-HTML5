@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LocalStrage3</title>
+    <style>
+    #showNumber{
+        position: absolute;
+        margin-top: 50px;
+        margin-left: 250px;
+        font-size: 18px;
+
+    }
+    </style>
+</head>
+<body>
+    <span id="showNumber">
+        访问人数显示
+    </span>
+
+    <script>
+
+        //判断浏览器是否支持localStorage
+        function getLocalStorage(){
+            try{
+                if(!! window.localStorage ){
+                    return window.localStorage;
+                }
+            }catch(e){
+                return undefined;
+            }
+        }
+        //统计访问当前页面的人数
+        function ShowVisitedNumber(){
+            var localStorage1 = getLocalStorage();
+            if(localStorage1.getItem("countNumber")){ //判断countNumber属性值是否为空，不为空则将当前访问的次数加1，否则置为1
+                localStorage1.setItem("countNumber",Number(localStorage1.getItem("countNumber")) + 1 );
+            }else{
+                localStorage1.setItem("countNumber",1);
+            }
+            document.getElementById("showNumber").innerHTML = "当前页面被访问的次数为："+localStorage1.getItem("countNumber");
+        } 
+        //及时更新页面被访问的次数
+        function storageHandler(e){
+            if(!e){
+                e=window.event;
+            }
+            document.getElementById("showNumber").innerHTML = "存储发生了变化：<b>"+e.key+"</b>键改变了。旧值：<b>"+e.oldValue+
+            "</b>被改变为新值<b>"+e.newValue+"</b><br/><br/>发生改变的网址为：<b>"+e.url+"</b>";
+        }
+        if(window.addEventListener){
+            window.addEventListener("storage",storageHandler,false);
+        }else{
+            window.attachEvent("onstorage",storageHandler);
+        }
+        window.onload = ShowVisitedNumber;
+
+    </script>
+</body>
+</html>

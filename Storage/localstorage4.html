@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>联系人数据的保存和读取</title>
+</head>
+<body>
+
+    <table border="0" cellspacing="0" cellpadding="0" class="table1" align="">
+        <thead>
+            <tr>
+                <td>联系人姓名</td>
+                <td>手机号码</td>
+                <td>所属群组</td>
+            </tr>
+        </thead>
+        <tbody id="contactListBody">
+        </tbody>
+    </table>
+
+    <button id="addPerson" onclick="Add()">添加联系人</button>
+    <button id="searchPerson" onclick="Search()">检索联系人</button>
+
+    <div id="addInfo" style="display: none;">
+        <table>
+            <tr>
+                <td height="30">姓名：</td>
+                <td>
+                    <input type="text" id="MoblieName">
+                </td>
+            </tr>
+            <tr>
+                 <td height="30">电话：</td>
+                <td>
+                    <input type="text" id="MobliePhone">
+                </td>
+            </tr>
+            <tr>
+                <td height="30">分组：</td>
+                <td>
+                    <select name="" id="MoblieGroup">
+                        <option value="默认">默认</option>
+                        <option value="家人">家人</option>
+                        <option value="同学">同学</option>
+                        <option value="朋友"></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" height="30">
+                    <button onclick="AddMobilePerson()">确认添加</button>
+                </td>
+            </tr>
+    </div>
+
+    <div id="searchInfo"  style="display: none">
+        输入联系电话：<input type="text" id="searchByMobilePhone" placeholder="正确的联系电话">
+        <button onclick="SearchMobliePerson()">查找</button>
+        <span id="searchContent"></span>
+    </div>
+</body>
+
+<script>
+    window.onload = Init;
+    function Init(){            //初始化联系人列表
+        localStorage.clear();   //清空localStorage对象中的内容
+        var data1 = new Object; //创建一个Object对象
+        data1.personName = "Cynthia";
+        data1.personPhone = "15829104582";
+        data1.personGroup = "家人";
+        localStorage.setItem(data1.personPhone,JSON.stringify(data1)); //保存数据，JSON对象的stringify（）返回文本数据集
+        GetPersonList(); //加载显示联系人列表
+    }
+    function GetPersonList(){ //获取存储在locaStorage对象中的数据列表
+        var strHTML = "<tbody>";
+        for(var i=0; i<localStorage.length; i++){
+            var datakey = localStorage.key(i);
+            //调用parse()方法获取JSON对象,将所有读取的数据保存到变量strHTML中
+            var data = JSON.parse(localStorage.getItem(datakey)); 
+            strHTML += "<tr>";
+            strHTML += "<td style=\"width:200px; \" >" + data.personName + "</td>";
+            strHTML += "<td style=\"width:180px; \" >" + data.personPhone + "</td>";
+            strHTML += "<td>" + data.personGroup + "</td>";
+            strHTML += "</tr>";
+        }
+        strHTML += "</tbody>";
+        document.getElementById('contactListBody').innerHTML = strHTML;
+    }
+    function Add(){    //添加联系人，出现添加的联系人信息填写
+        document.getElementById('addInfo').style.display = "inline";
+        document.getElementById('searchInfo').style.display = "none";
+    }
+     function Search(){ //搜索联系人，出现搜索的结果
+        document.getElementById('searchInfo').style.display = "inline";
+        document.getElementById('addInfo').style.display = "none";
+    }
+    function AddMobilePerson(){  //确认添加，将信息添加到列表
+        var data = new Object;   //创建一个js对象，用于存放当前从表单获得的数据
+        data.personName = document.getElementById('MoblieName').value;
+        data.personPhone = document.getElementById('MobliePhone').value;
+        data.personGroup = document.getElementById('MoblieGroup').value;
+        var str = JSON.stringify(data); //把JSON对象存放到localStorage上，key为用户输入的用户名，vlaue为这个JSON字符串
+        localStorage.setItem(data.personPhone,str);
+        GetPersonList();
+        document.getElementById('MoblieName').value = "";
+        document.getElementById('MobliePhone').value = "";
+        document.getElementById('MoblieGroup').selectedIndex = 0;
+    }
+    function SearchMobliePerson(){
+        var searchphone = document.getElementById('searchByMobilePhone').value;
+        var searchStr = localStorage.getItem(searchphone);
+        if(searchStr == null){
+            document.getElementById('searchContent').innerHTML = "<font color=\"red\">很抱歉,没有找到您要的联系人。</font>";
+        }else{
+            var searchData = JSON.parse(searchStr);
+            var searchResult = "<br/>联系人姓名; " + searchData.personName + "<br/>联系人电话： " + searchData.personPhone 
+            + "<br/>所属分组： " + searchData.personGroup;
+            document.getElementById('searchContent').innerHTML = searchResult;
+        }
+    }
+</script>
+
+</html>

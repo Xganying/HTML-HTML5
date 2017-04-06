@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>localStorage和sessionStorage</title>
+</head>
+<body>
+    用户名：<input type="text" name="user" id="user" size="24" maxlength="12">
+    密  码：<input type="password" name="pass" id="pass" size="24" maxlength="16">
+    <script>
+         //判断浏览器是否支持localStorage
+        function getLocalStorage(){
+            try{
+                if(!! window.localStorage ){
+                    return window.localStorage;
+                }
+            }catch(e){
+                return undefined;
+            }
+        }
+        //判断浏览器是否支持seesionStorage
+        function getSessionStorage(){
+            try{
+                if(!! window.sessionStorage){
+                    return window.sessionStorage;
+                }
+            }catch(e){
+                return undefined;
+            }
+        }
+        var sessionStorage = getSessionStorage(); //获取sessionStorage对象
+        var localStorage = getLocalStorage();
+        var oUser = document.getElementById('user'); //获取同户名对象
+        var oPass = document.getElementById('pass'); //获取密码对象
+        oUser.value = localStorage.getItem('userName');
+        oPass.value = sessionStorage.getItem('userPass');
+        oUser.onkeyup = function(){
+            localStorage.setItem("userName",this.value);
+        }
+        oPass.onkeyup = function(){
+            sessionStorage.setItem("userPass",this.value);
+        }
+    </script>
+</body>
+</html>

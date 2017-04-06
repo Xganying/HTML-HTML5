@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>LocalStrage</title>
+</head>
+<body>
+
+    <script>
+
+        //判断浏览器是否支持localStorage
+        function getLocalStorage(){
+            try{
+                if(!! window.localStorage ){
+                    return window.localStorage;
+                }
+            }catch(e){
+                return undefined;
+            }
+        }
+        //获取localStorage对象
+        var localStorage = getLocalStorage(); 
+        //存储数据（两种方法）
+        localStorage.setItem("name","Cynthia");   //方法一
+        localStorage.setItem("age","21");
+        localStorage.hobby = "sing";          //方法二
+        //获取保存的数据（两种方法）
+        console.log(localStorage.name + " 今年" + localStorage.age + ",她喜欢 " + localStorage.hobby); 
+        console.log(localStorage.getItem("name") + " 今年" + localStorage.getItem("age") + ",她喜欢 "+ localStorage.getItem("hobby"));
+        //调用key()方法获取指定下标的名称的值
+        var value0 =localStorage.key(0); 
+        console.log(value0);
+        //删除某个指定的数据
+        localStorage.removeItem("hobby"); 
+        console.log(localStorage.getItem("name") + " 今年" + localStorage.getItem("age") + " ,她喜欢 "+ localStorage.getItem("hobby"));
+        //清空当前所有保存的数据
+        localStorage.clear();
+        console.log(localStorage.getItem("name") + " 今年" + localStorage.getItem("age") + " ,她喜欢 "+ localStorage.getItem("hobby"));
+
+    </script>
+</body>
+</html>
